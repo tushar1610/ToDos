@@ -10,12 +10,16 @@ import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.ArrayList;
+
 
 public class MainActivity extends AppCompatActivity{
 
-    FloatingActionButton addNewTask;
-    RecyclerViewAdapter adapter;
-    RecyclerView recyclerView;
+    private FloatingActionButton addNewTask;
+    private RecyclerViewAdapter adapter;
+    private RecyclerView recyclerView;
+    private DbHandler dbHandler;
+    private ArrayList<todo> arrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,20 +27,22 @@ public class MainActivity extends AppCompatActivity{
         setContentView(R.layout.activity_main);
         addNewTask = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.tasksRecyclerView);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        arrayList = new ArrayList<>();
+        dbHandler = new DbHandler(MainActivity.this);
 
-        todo[] dataSet = new todo[20];
+        arrayList = dbHandler.readToDo();
+        adapter = new RecyclerViewAdapter(arrayList, MainActivity.this);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(adapter);
         addNewTask.setOnClickListener(v -> {
-            boolean prev = false;
-            for(int i = 0; i < 20; i++){
-                todo td = new todo("Task " + (i+1) + " set", prev);
-                prev = !prev;
-                dataSet[i] = td;
-            }
-            adapter = new RecyclerViewAdapter(dataSet);
-            recyclerView.setAdapter(adapter);
-//                Intent intent = new Intent(getApplicationContext(), NewTaskActivity.class);
-//                startActivity(intent);
+                Intent intent = new Intent(getApplicationContext(), NewTaskActivity.class);
+                startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        adapter.notifyDataSetChanged();
     }
 }
