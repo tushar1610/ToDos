@@ -24,19 +24,19 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.task_layout, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.task_layout, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         todo td = arrayList.get(position);
-        holder.box.setEnabled(td.check);
         if(td.newText == null){
             holder.newTask.setText("");
         } else {
             holder.newTask.setText(td.newText);
         }
+        holder.reminder.setText(td.reminder);
     }
 
     @Override
@@ -46,13 +46,12 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView newTask;
-        public CheckBox box;
+        public TextView newTask, reminder;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            box = (CheckBox) itemView.findViewById(R.id.todoCheckBox);
             newTask = (TextView) itemView.findViewById(R.id.taskDetail);
+            reminder = (TextView) itemView.findViewById(R.id.reminderDetail);
         }
     }
 }

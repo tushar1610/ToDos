@@ -10,16 +10,38 @@
         android:id="@+id/newTaskText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@null"
+        android:background="#F0323232"
         android:hint="New ToDo"
+        android:textColorHint="@color/white"
         android:layout_margin="8dp"
         android:minHeight="32dp"
+        android:padding="8dp"
+        android:textColor="@color/white"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/newTaskText"
+        android:id="@+id/reminderButton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="8dp"
+        android:padding="8dp"
+        android:background="@android:color/holo_green_dark"
+        android:textColor="@color/white"
+        android:text="Set Reminder"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        android:drawableLeft="@drawable/ic_baseline_alarm_add_24"
+        android:drawablePadding="4dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/newTaskText"
+        android:layout_below="@id/reminderButton"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -39,7 +61,7 @@
             android:background="@android:color/holo_green_dark"
             android:text="Add"
             android:textAllCaps="false"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="16sp" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -58,7 +80,7 @@
             android:background="@android:color/holo_green_dark"
             android:text="Cancel"
             android:textAllCaps="false"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="16sp" />
 
     </LinearLayout>

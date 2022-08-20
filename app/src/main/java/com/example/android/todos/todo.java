@@ -3,11 +3,11 @@ package com.example.android.todos;
 public class todo {
 
     String newText;
-    boolean check;
+    String reminder;
 
-    public todo(String newText, boolean check) {
+    public todo(String newText, String reminder) {
         this.newText = newText;
-        this.check = check;
+        this.reminder = reminder;
     }
 
     public todo(String newText) {
