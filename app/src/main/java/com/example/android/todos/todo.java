@@ -3,11 +3,13 @@ package com.example.android.todos;
 public class todo {
 
     String newText;
-    String reminder;
+    String reminderDate;
+    String reminderTime;
 
-    public todo(String newText, String reminder) {
+    public todo(String newText, String date, String time) {
         this.newText = newText;
-        this.reminder = reminder;
+        this.reminderDate = date;
+        this.reminderTime = time;
     }
 
     public todo(String newText) {

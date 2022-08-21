@@ -15,7 +15,8 @@ public class DbHandler extends SQLiteOpenHelper {
     private static final String TABLE_NAME = "todoTable";
     private static final String ID_COL = "id";
     private static final String TNAME_COL = "taskName";
-    private static final String REMINDER_COL = "reminder";
+    private static final String DATE_COL = "date";
+    private static final String TIME_COL = "time";
 
     public DbHandler(Context context){
         super(context, DB_NAME, null, DB_VERSION);
@@ -26,7 +27,8 @@ public class DbHandler extends SQLiteOpenHelper {
         String query = "CREATE TABLE " + TABLE_NAME + " ("
                 + ID_COL + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + TNAME_COL + " TEXT NOT NULL, "
-                + REMINDER_COL + " TEXT NOT NULL)";
+                + DATE_COL + " TEXT NOT NULL, "
+                + TIME_COL + " TEXT NOT NULL)";
 
         db.execSQL(query);
     }
@@ -35,7 +37,8 @@ public class DbHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(TNAME_COL, td.newText);
-        values.put(REMINDER_COL, td.reminder);
+        values.put(DATE_COL, td.reminderDate);
+        values.put(TIME_COL, td.reminderTime);
         db.insert(TABLE_NAME, null, values);
         db.close();
     }
@@ -46,7 +49,7 @@ public class DbHandler extends SQLiteOpenHelper {
         ArrayList<todo> arrayList = new ArrayList<>();
         if(cursor.moveToFirst()){
             do{
-                arrayList.add(new todo(cursor.getString(1), cursor.getString(2)));
+                arrayList.add(new todo(cursor.getString(1), cursor.getString(2), cursor.getString(3)));
             } while (cursor.moveToNext());
         }
         cursor.close();

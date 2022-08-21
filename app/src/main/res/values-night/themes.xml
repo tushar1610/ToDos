@@ -19,4 +19,19 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
+    <style name="my_dialog_theme" parent="ThemeOverlay.AppCompat.Dialog">
+        <item name="colorAccent">@android:color/holo_green_dark</item>                   <!--header background-->
+        <item name="android:windowBackground">@color/colorPrimary</item>     <!--calendar background-->
+        <item name="android:colorControlActivated">@android:color/holo_green_dark</item> <!--selected day-->
+        <item name="android:textColorPrimary">@android:color/white</item> <!--days of the month-->
+        <item name="android:textColorSecondary">@android:color/white</item>    <!--days of the week-->
+        <item name="android:buttonBarNegativeButtonStyle">@style/my_dialog_theme.ButtonBarNegativeButtonStyle</item>
+        <item name="android:buttonBarPositiveButtonStyle">@style/my_dialog_theme.ButtonBarPositiveButtonStyle</item>
+    </style>
+    <style name="my_dialog_theme.ButtonBarNegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+    <style name="my_dialog_theme.ButtonBarPositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
 </resources>

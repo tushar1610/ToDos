@@ -36,7 +36,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         } else {
             holder.newTask.setText(td.newText);
         }
-        holder.reminder.setText(td.reminder);
+        holder.taskDate.setText(td.reminderDate);
+        holder.taskTime.setText(td.reminderTime);
     }
 
     @Override
@@ -46,12 +47,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder{
 
-        public TextView newTask, reminder;
+        public TextView newTask, taskDate, taskTime;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             newTask = (TextView) itemView.findViewById(R.id.taskDetail);
-            reminder = (TextView) itemView.findViewById(R.id.reminderDetail);
+            taskDate = (TextView) itemView.findViewById(R.id.dateDetail);
+            taskTime = (TextView) itemView.findViewById(R.id.timeDetail);
         }
     }
 }
