@@ -43,7 +43,7 @@ public class DbHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public ArrayList<todo> readToDo(){
+    public ArrayList<todo> readTask(){
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_NAME, null);
         ArrayList<todo> arrayList = new ArrayList<>();
@@ -54,6 +54,12 @@ public class DbHandler extends SQLiteOpenHelper {
         }
         cursor.close();
         return arrayList;
+    }
+
+    public void deleteTask(String newText) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_NAME, "taskName=?", new String[]{newText});
+        db.close();
     }
 
     @Override
