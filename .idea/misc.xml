@@ -7,13 +7,20 @@
         <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/ic_baseline_add.xml" value="0.10462962962962963" />
         <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/ic_baseline_alarm_add_24.xml" value="0.1" />
         <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/ic_baseline_alarm_on_24.xml" value="0.1" />
+        <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/ic_baseline_calendar_24.xml" value="0.1" />
         <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/ic_baseline_calendar_today_24.xml" value="0.1" />
+        <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/ic_baseline_cancel_24.xml" value="0.1" />
+        <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/ic_baseline_crop_16_9_24.xml" value="0.1" />
         <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/ic_launcher_background.xml" value="0.1" />
+        <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/round_shape_edit_text.xml" value="0.1" />
+        <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/rounded_shape.xml" value="0.1" />
+        <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/drawable/rounded_shape_button.xml" value="0.1" />
         <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/layout/activity_main.xml" value="0.12771739130434784" />
-        <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/layout/activity_new_task.xml" value="0.18931159420289856" />
+        <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/layout/activity_new_task.xml" value="0.25" />
         <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/layout/activity_splash.xml" value="0.1213768115942029" />
         <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/layout/new_task.xml" value="0.1" />
         <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/layout/task_layout.xml" value="0.2248995983935743" />
+        <entry key="..\:/Users/agarw/AndroidStudioProjects/ToDos/app/src/main/res/menu/my_menu.xml" value="0.2" />
       </map>
     </option>
   </component>

@@ -6,10 +6,14 @@ import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatButton;
 
 import java.text.DateFormat;
@@ -18,7 +22,7 @@ import java.util.Calendar;
 public class NewTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
     private EditText newTask;
-    private AppCompatButton reminder, save, cancel;
+    private AppCompatButton reminderDate, reminderTime, cancel;
     private DbHandler dbHandler;
     private String dateText ;
     private String timeText;
@@ -26,45 +30,62 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
     AlarmManager alarmManager;
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.my_menu, menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if(item.getItemId() == R.id.newTaskButton){
+            String newtask = newTask.getText().toString().trim();
+            if(newtask.isEmpty()){
+                Toast.makeText(NewTaskActivity.this, "Task Name cannot be empty.", Toast.LENGTH_SHORT).show();
+            } else {
+                todo td = new todo(newtask, dateText, timeText);
+                dbHandler.addNewTask(td);
+                Toast.makeText(NewTaskActivity.this, "ToDo has been added.", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(NewTaskActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_new_task);
         newTask = findViewById(R.id.newTaskText);
-        reminder = findViewById(R.id.reminderButton);
-        save = findViewById(R.id.newTaskButton);
+        newTask.requestFocus();
+        reminderDate = findViewById(R.id.reminderDateButton);
+        reminderTime = findViewById(R.id.reminderTimeButton);
         cancel = findViewById(R.id.cancelButton);
         //alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE) ;
 
         dbHandler = new DbHandler(NewTaskActivity.this);
 
-        reminder.setOnClickListener(v -> {
-            //Time Picker
-            TimePicker timePicker = new TimePicker();
-            timePicker.show(getSupportFragmentManager(), "TIME PICK");
-
+        reminderDate.setOnClickListener(v -> {
             //Date Picker
             DatePicker datePicker = new DatePicker();
             datePicker.show(getSupportFragmentManager(), "DATE PICK");
         });
 
-        save.setOnClickListener(v -> {
-            String newtask = newTask.getText().toString().trim();
-            if(newtask.isEmpty()){
-                Toast.makeText(NewTaskActivity.this, "Task Name cannot be empty.", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            todo td = new todo(newtask, dateText, timeText);
-            dbHandler.addNewTask(td);
-            Toast.makeText(NewTaskActivity.this, "ToDo has been added.", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(NewTaskActivity.this, MainActivity.class);
-            startActivity(intent);
-            finish();
+        reminderTime.setOnClickListener(v -> {
+            //Time Picker
+            TimePicker timePicker = new TimePicker();
+            timePicker.show(getSupportFragmentManager(), "TIME PICK");
         });
+
         cancel.setOnClickListener(v -> {
             Intent intent = new Intent(NewTaskActivity.this, MainActivity.class);
             startActivity(intent);
             finish();
         });
+
     }
 
     @Override

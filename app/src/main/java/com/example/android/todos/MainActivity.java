@@ -2,6 +2,7 @@ package com.example.android.todos;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,6 +13,7 @@ import android.view.View;
 
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
@@ -24,10 +26,13 @@ public class MainActivity extends AppCompatActivity{
     private RecyclerView recyclerView;
     private DbHandler dbHandler;
     private ArrayList<todo> arrayList;
+    //private boolean isRemoved = false;
+    private Snackbar sb;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_main);
         addNewTask = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.tasksRecyclerView);
@@ -50,7 +55,8 @@ public class MainActivity extends AppCompatActivity{
                 int position = viewHolder.getAdapterPosition();
                 arrayList.remove(position);
                 adapter.notifyItemRemoved(position);
-                Snackbar.make(recyclerView, td.getNewText(), Snackbar.LENGTH_SHORT).setAction("Undo", new View.OnClickListener() {
+                sb = Snackbar.make(recyclerView, td.getNewText(), Snackbar.LENGTH_SHORT);
+                sb.setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         arrayList.add(position, td);
@@ -61,7 +67,7 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event != 1){
+                        if(event != BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_ACTION){
                             dbHandler.deleteTask(td.getNewText());
                         }
                     }
@@ -71,12 +77,20 @@ public class MainActivity extends AppCompatActivity{
         addNewTask.setOnClickListener(v -> {
                 Intent intent = new Intent(getApplicationContext(), NewTaskActivity.class);
                 startActivity(intent);
+                finish();
         });
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         adapter.notifyDataSetChanged();
     }
 }

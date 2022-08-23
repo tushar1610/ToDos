@@ -19,7 +19,7 @@
         <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:windowSoftInputMode">adjustResize</item>
     </style>
-    <style name="my_dialog_theme" parent="ThemeOverlay.AppCompat.Dialog">
+    <style name="my_dialog_theme" parent="Theme.AppCompat.DayNight.Dialog">
         <item name="colorAccent">@android:color/holo_green_dark</item>                   <!--header background-->
         <item name="android:windowBackground">@color/colorPrimary</item>     <!--calendar background-->
         <item name="android:colorControlActivated">@android:color/holo_green_dark</item> <!--selected day-->
