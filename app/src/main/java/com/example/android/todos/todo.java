@@ -6,7 +6,8 @@ public class todo {
     String reminderDate;
     String reminderTime;
 
-    public todo(String newText, String date, String time) {
+    public todo( String newText, String date, String time) {
+
         this.newText = newText;
         this.reminderDate = date;
         this.reminderTime = time;

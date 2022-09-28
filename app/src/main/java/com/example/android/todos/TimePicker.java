@@ -19,6 +19,6 @@ public class TimePicker extends DialogFragment {
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
         int min = calendar.get(Calendar.MINUTE);
         return new TimePickerDialog(getActivity(), R.style.my_dialog_theme, (TimePickerDialog.OnTimeSetListener)
-                getActivity(), hour, min, true);
+                getActivity(), hour, min, false);
     }
 }

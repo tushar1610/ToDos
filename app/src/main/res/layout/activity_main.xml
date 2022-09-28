@@ -1,11 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/noToDo"
+        android:layout_centerInParent="true">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:src="@drawable/icon"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/noimg"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/darker_gray"
+            android:text="What are you planning on doing today?"
+            android:layout_below="@id/noimg"
+            android:layout_centerHorizontal="true"
+            android:textSize="16sp"
+            android:id="@+id/noimg2"/>
+
+    </RelativeLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -26,3 +53,4 @@
         android:backgroundTint="@android:color/holo_green_dark"
         android:src="@drawable/ic_baseline_add"/>
 </RelativeLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

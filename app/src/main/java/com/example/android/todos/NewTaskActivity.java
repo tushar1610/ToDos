@@ -2,9 +2,14 @@ package com.example.android.todos;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.media.RingtoneManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,6 +22,8 @@ import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.AppCompatButton;
 
 import java.text.DateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
 
 public class NewTaskActivity extends AppCompatActivity implements DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
@@ -26,8 +33,6 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
     private DbHandler dbHandler;
     private String dateText ;
     private String timeText;
-    PendingIntent pendingIntent;
-    AlarmManager alarmManager;
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -46,8 +51,8 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
                 dbHandler.addNewTask(td);
                 Toast.makeText(NewTaskActivity.this, "ToDo has been added.", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(NewTaskActivity.this, MainActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
-                finish();
             }
             return true;
         }
@@ -64,7 +69,6 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         reminderDate = findViewById(R.id.reminderDateButton);
         reminderTime = findViewById(R.id.reminderTimeButton);
         cancel = findViewById(R.id.cancelButton);
-        //alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE) ;
 
         dbHandler = new DbHandler(NewTaskActivity.this);
 
@@ -82,8 +86,8 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
 
         cancel.setOnClickListener(v -> {
             Intent intent = new Intent(NewTaskActivity.this, MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
-            finish();
         });
 
     }
@@ -105,17 +109,5 @@ public class NewTaskActivity extends AppCompatActivity implements DatePickerDial
         } else {
             timeText = hourOfDay + ":" + minute;
         }
-//        Intent intent = new Intent(this, AlarmReceiver.class);
-//        pendingIntent = PendingIntent.getBroadcast(this, 0, intent, 0);
-//
-//        long time = (mCalendar.getTimeInMillis() - (mCalendar.getTimeInMillis() % 60000));
-//        if (System.currentTimeMillis() > time) {
-//            // setting time as AM and PM
-//            if (mCalendar.AM_PM == 0)
-//                time = time + (1000 * 60 * 60 * 12);
-//            else
-//                time = time + (1000 * 60 * 60 * 24);
-//        }
-//        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, time, 300000, pendingIntent);
     }
 }

@@ -49,11 +49,26 @@ public class DbHandler extends SQLiteOpenHelper {
         ArrayList<todo> arrayList = new ArrayList<>();
         if(cursor.moveToFirst()){
             do{
-                arrayList.add(new todo(cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+                boolean check = false;
+                if(cursor.getInt(1) != 0){
+                    check = true;
+                }
+                arrayList.add(new todo(cursor.getString(2), cursor.getString(3), cursor.getString(4)));
             } while (cursor.moveToNext());
         }
         cursor.close();
         return arrayList;
+    }
+
+    public void updateTask(todo td){
+        SQLiteDatabase sqLiteDatabase = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(TNAME_COL, td.newText);
+        values.put(DATE_COL, td.reminderDate);
+        values.put(TIME_COL, td.reminderTime);
+
+        sqLiteDatabase.update(TABLE_NAME, values, "name=?", new String[]{td.newText});
+        sqLiteDatabase.close();
     }
 
     public void deleteTask(String newText) {

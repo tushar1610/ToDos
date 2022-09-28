@@ -1,13 +1,17 @@
 package com.example.android.todos;
 
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatCheckBox;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -16,6 +20,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     private ArrayList<todo> arrayList;
     private Context context;
+    private DbHandler dbHandler;
     public RecyclerViewAdapter(ArrayList<todo> todoArrayList, Context context) {
         this.arrayList = todoArrayList;
         this.context = context;
@@ -31,6 +36,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         todo td = arrayList.get(position);
+//        if (td.isChecked()){
+//            holder.checkbox.setEnabled(true);
+//        } else {
+//            holder.checkbox.setEnabled(false);
+//        }
         if(td.newText == null){
             holder.newTask.setText("");
         } else {
@@ -38,6 +48,25 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         }
         holder.taskDate.setText(td.reminderDate);
         holder.taskTime.setText(td.reminderTime);
+
+//        holder.checkbox.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                boolean isChecked = holder.checkbox.isChecked();
+//                if (isChecked){
+//                    td.setChecked(true);
+//                    holder.newTask.setPaintFlags(Paint.STRIKE_THRU_TEXT_FLAG);
+//                    dbHandler.updateTask(td);
+//                    Toast.makeText(context, "You completed your task successfully!!!", Toast.LENGTH_SHORT).show();
+//                } else {
+//                    if (td.isChecked()){
+//                        td.setChecked(false);
+//                        holder.newTask.setPaintFlags(~ Paint.STRIKE_THRU_TEXT_FLAG);
+//                        dbHandler.updateTask(td);
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override

@@ -10,36 +10,38 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-
+import android.widget.CheckBox;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 
-
 public class MainActivity extends AppCompatActivity{
-
     private FloatingActionButton addNewTask;
     private RecyclerViewAdapter adapter;
     private RecyclerView recyclerView;
     private DbHandler dbHandler;
     private ArrayList<todo> arrayList;
-    //private boolean isRemoved = false;
     private Snackbar sb;
+    private View noTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         setContentView(R.layout.activity_main);
+
         addNewTask = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.tasksRecyclerView);
         arrayList = new ArrayList<>();
         dbHandler = new DbHandler(MainActivity.this);
-
+        noTask = findViewById(R.id.noToDo);
         arrayList = dbHandler.readTask();
+
+        if(arrayList.isEmpty()){
+            noTask.setVisibility(View.VISIBLE);
+        }
         adapter = new RecyclerViewAdapter(arrayList, MainActivity.this);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(adapter);
@@ -55,11 +57,15 @@ public class MainActivity extends AppCompatActivity{
                 int position = viewHolder.getAdapterPosition();
                 arrayList.remove(position);
                 adapter.notifyItemRemoved(position);
+                if(arrayList.isEmpty()){
+                    noTask.setVisibility(View.VISIBLE);
+                }
                 sb = Snackbar.make(recyclerView, td.getNewText(), Snackbar.LENGTH_SHORT);
                 sb.setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         arrayList.add(position, td);
+                        noTask.setVisibility(View.INVISIBLE);
                         //dbHandler.addNewTask(td);
                         adapter.notifyItemInserted(position);
                     }
@@ -67,7 +73,7 @@ public class MainActivity extends AppCompatActivity{
                     @Override
                     public void onDismissed(Snackbar transientBottomBar, int event) {
                         super.onDismissed(transientBottomBar, event);
-                        if(event != BaseTransientBottomBar.BaseCallback.DISMISS_EVENT_ACTION){
+                        if(event != DISMISS_EVENT_ACTION){
                             dbHandler.deleteTask(td.getNewText());
                         }
                     }
@@ -77,7 +83,6 @@ public class MainActivity extends AppCompatActivity{
         addNewTask.setOnClickListener(v -> {
                 Intent intent = new Intent(getApplicationContext(), NewTaskActivity.class);
                 startActivity(intent);
-                finish();
         });
 
     }
@@ -91,6 +96,11 @@ public class MainActivity extends AppCompatActivity{
     @Override
     protected void onStart() {
         super.onStart();
+        if(arrayList.isEmpty()){
+            noTask.setVisibility(View.VISIBLE);
+        } else {
+            noTask.setVisibility(View.INVISIBLE);
+        }
         adapter.notifyDataSetChanged();
     }
 }
