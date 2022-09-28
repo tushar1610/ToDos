@@ -49,11 +49,7 @@ public class DbHandler extends SQLiteOpenHelper {
         ArrayList<todo> arrayList = new ArrayList<>();
         if(cursor.moveToFirst()){
             do{
-                boolean check = false;
-                if(cursor.getInt(1) != 0){
-                    check = true;
-                }
-                arrayList.add(new todo(cursor.getString(2), cursor.getString(3), cursor.getString(4)));
+                arrayList.add(new todo(cursor.getString(1), cursor.getString(2), cursor.getString(3)));
             } while (cursor.moveToNext());
         }
         cursor.close();
